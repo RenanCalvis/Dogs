@@ -12,7 +12,6 @@ const FeedModal = ({ photo, setModalPhoto }) => {
   React.useEffect(() => {
     if (photo.id) {
       const { url, options } = PHOTO_GET(photo.id);
-      console.log('URL AQUI::' + url);
       request(url, options);
     }
   }, [photo, request]);
