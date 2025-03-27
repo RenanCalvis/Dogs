@@ -5,11 +5,16 @@ import styles from './PhotoComments.module.css';
 
 const PhotoComments = ({ id, comments }) => {
   const [photoComments, setPhotoComments] = React.useState(() => comments);
+  const commentsSection = React.useRef(null);
   const { login } = React.useContext(UserContext);
+
+  React.useEffect(() => {
+    commentsSection.current.scrollTop = commentsSection.current.scrollHeight;
+  }, []);
 
   return (
     <>
-      <ul className={styles.comments}>
+      <ul ref={commentsSection} className={styles.comments}>
         {photoComments.map((comment) => (
           <li key={comment.comment_ID}>
             <b>{comment.comment_author}: </b>
@@ -17,7 +22,9 @@ const PhotoComments = ({ id, comments }) => {
           </li>
         ))}
       </ul>
-      {login && <PhotoCommentsForm id={id} setPhotoComments={setPhotoComments}/>}
+      {login && (
+        <PhotoCommentsForm id={id} setPhotoComments={setPhotoComments} />
+      )}
     </>
   );
 };
